@@ -1,0 +1,35 @@
+{
+  "name": "ramabackend",
+  "version": "1.0.0",
+  "description": "backend de ramacos",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "login",
+    "registration",
+    "rest",
+    "api",
+    "jwt",
+    "authentication",
+    "authorization",
+    "mysql"
+  ],
+  "author": "Jalil Fonda",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-session": "^2.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.13.0",
+    "nodemon": "^3.1.9",
+    "sequelize": "^6.37.6",
+    "sql-template-strings": "^2.2.2"
+  }
+}
