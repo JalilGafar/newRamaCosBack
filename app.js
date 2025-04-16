@@ -3,7 +3,7 @@ const express = require ('express');
 var cors = require('cors');
 const cookieSession = require("cookie-session");
 var con = require('./app/config/db.config')
-// var SQL = require('sql-template-strings')
+//  var SQL = require('sql-template-strings')
 var app = express();
 
 //app.use(cors());
@@ -24,7 +24,7 @@ app.use(
       name: "bezkoder-session",
       keys: ["COOKIE_SECRET"], // should use as secret environment variable
       httpOnly: true,
-      sameSite: 'strict'
+      sameSite: 'none'
     })
 );
 

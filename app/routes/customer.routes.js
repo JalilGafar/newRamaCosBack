@@ -5,7 +5,7 @@ const router = express.Router();
 var con = require('../../rama-db');
 
 router.get("/", (req, res, next) => {
-    con.query("SELECT * FROM produits;",
+    con.query("SELECT * FROM produits where (stock > 0) order by marque;",
         function (err, result, fields) {
             if (err) {
                 console.log(err);
@@ -18,8 +18,9 @@ router.get("/", (req, res, next) => {
     )
 } )
 
+// requette des commande passée par orde decroissant d'Id
 router.get("/order", (req, res, next) => {
-    con.query("SELECT * FROM commandes;",
+    con.query("SELECT * FROM commandes order by id_cmd DESC;",
         function (err, result, fields) {
             if (err) {
                 console.log(err);
@@ -84,7 +85,7 @@ router.post('/commande', (req, res, next) => {
                         res.sendStatus(500);
                         return;
                     };
-                    res.sendStatus(200);
+                    res.status(200).json(result)
                     console.log('Commande enregistrée !');
                 }
             );

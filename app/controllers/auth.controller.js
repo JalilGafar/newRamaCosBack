@@ -2,6 +2,8 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
+var con = require('../../rama-db');
+var SQL = require('sql-template-strings');
 
 const Op = db.Sequelize.Op;
 
@@ -10,12 +12,23 @@ const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   // Save User to Database
+  var client = req.body
+  var crypt = bcrypt.hashSync(client.password, 8)
   try {
     const user = await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 8),
+      username: client.username,
+      password: bcrypt.hashSync(client.password, 8),
+      localisation: client.localisation,
+      tel1: client.tel1,
+      tel2: client.tel2,
     });
+
+    // con.query(
+    //   SQL
+    //   `INSERT INTO users (username, password, localisation, tel1, tel2) 
+    //     VALUES (${client.username}, ${crypt}, ${client.localisation}, ${client.tel1}, ${client.tel2});
+    //   ` 
+    // )
 
     if (req.body.roles) {
       const roles = await Role.findAll({
@@ -91,6 +104,12 @@ exports.signin = async (req, res) => {
 exports.signout = async (req, res) => {
   try {
     req.session = null;
+    res.clearCookie('bezkoder-session', {
+        path: '/',
+        httOnly: true,
+        sameSite: 'none',
+        secure: true
+    });
     return res.status(200).send({
       message: "Vous avez été déconnecté !"
     });
